@@ -16,14 +16,14 @@ html, body {
 
 #game-title {
     font-family: 'Press Start 2P', cursive;
-    font-size: 4vw;
+    font-size: 2em;
     color: #fff;
     text-align: center;
 }
 
 #game-board {
-    height: 80vh;
-    width: 80vw;
+    height: 600px;
+    width: 600px;
     background-color: #fff;
     display: grid;
     grid-template-rows: repeat(20, 1fr);
@@ -32,7 +32,7 @@ html, body {
 
 #score, #high-score {
     font-family: 'Press Start 2P', cursive;
-    font-size: 2vw;
+    font-size: 1rem;
     color: yellow;
     text-align: center;
     margin-top: 20px;
@@ -58,7 +58,7 @@ html, body {
 
 #restart-button {
     font-family: 'Press Start 2P', cursive;
-    font-size: 2vw;
+    font-size: 1.5em;
     color: #fff;
     text-align: center;
     background: none;
@@ -66,17 +66,21 @@ html, body {
     cursor: pointer;
 }
 
+#game-board, #game-title, #score, #high-score, #restart-button {
+    transition: all 0.5s ease;
+}
+
 @media (max-width: 600px) {
     #game-board {
-        height: 60vh;
-        width: 60vw;
+        height: 300px;
+        width: 300px;
     }
 
     #game-title {
-        font-size: 6vw;
+        font-size: 1.5em;
     }
 
-    #score, #high-score {
-        font-size: 3vw;
+    #score, #high-score, #restart-button {
+        font-size: 0.75em;
     }
 }
