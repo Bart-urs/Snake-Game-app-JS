@@ -9,16 +9,17 @@ let finalScore = 0;
 window.addEventListener('keydown', e => {
     // Sprawdź, czy wyświetlany jest ekran końcowy
     if (document.getElementById('end-screen').style.display === 'block') {
-        // Jeśli tak, to tylko Enter powinien działać
         if (e.key === 'Enter') {
-            // Restart gry
+            // Tutaj możemy umieścić kod, który ma się wykonać po wciśnięciu klawisza Enter
             document.getElementById('restart-button').click();
         }
         // Zatrzymaj dalsze przetwarzanie zdarzenia
         return;
     }
+
     // Check if the name input form is displayed
     if (document.getElementById('name-input').style.display === 'block') {
+        // Zatrzymaj dalsze przetwarzanie zdarzenia
         return;
     }
 
@@ -171,6 +172,8 @@ function gameOver() {
 
     document.getElementById('name-input').style.display = 'block';
     document.getElementById('game-container').style.display = 'none';
+
+    document.getElementById('player-name').focus();
 }
 
 document.getElementById('restart-button').addEventListener('click', function() {
@@ -212,11 +215,16 @@ function updateLeaderboard(score) {
 }
 
 document.getElementById('name-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    updateLeaderboard(finalScore);
-    displayLeaderboard();
-    document.getElementById('name-input').style.display = 'none';
-    document.getElementById('end-screen').style.display = 'block';
+    var playerName = document.getElementById('player-name').value;
+    if (playerName.trim() === '') { // Sprawdzamy, czy input jest pusty
+        event.preventDefault(); // Zapobiegamy domyślnej akcji
+    } else {
+        event.preventDefault();
+        updateLeaderboard(finalScore);
+        displayLeaderboard();
+        document.getElementById('name-input').style.display = 'none';
+        document.getElementById('end-screen').style.display = 'block';
+    }
 });
 
 function main() {
