@@ -16,31 +16,26 @@ html, body {
 
 #game-title {
     font-family: 'Press Start 2P', cursive;
+    font-size: 4vw;
     color: #fff;
     text-align: center;
 }
 
 #game-board {
-    height: 600px;
-    width: 600px;
+    height: 80vh;
+    width: 80vw;
     background-color: #fff;
     display: grid;
     grid-template-rows: repeat(20, 1fr);
     grid-template-columns: repeat(20, 1fr);
 }
 
-#score {
+#score, #high-score {
     font-family: 'Press Start 2P', cursive;
+    font-size: 2vw;
     color: yellow;
     text-align: center;
     margin-top: 20px;
-}
-
-#high-score {
-    font-family: 'Press Start 2P', cursive;
-    color: yellow;
-    text-align: center;
-    margin-top: 10px;
 }
 
 .snake {
@@ -55,4 +50,19 @@ html, body {
 
 .snake-head {
     background-color: rgb(0, 221, 85);
+}
+
+@media (max-width: 600px) {
+    #game-board {
+        height: 60vh;
+        width: 60vw;
+    }
+
+    #game-title {
+        font-size: 6vw;
+    }
+
+    #score, #high-score {
+        font-size: 3vw;
+    }
 }
