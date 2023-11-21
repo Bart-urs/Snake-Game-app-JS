@@ -7,6 +7,16 @@ const scoresList = document.getElementById('scores-list');
 let finalScore = 0;
 
 window.addEventListener('keydown', e => {
+    // Sprawdź, czy wyświetlany jest ekran końcowy
+    if (document.getElementById('end-screen').style.display === 'block') {
+        // Jeśli tak, to tylko Enter powinien działać
+        if (e.key === 'Enter') {
+            // Restart gry
+            document.getElementById('restart-button').click();
+        }
+        // Zatrzymaj dalsze przetwarzanie zdarzenia
+        return;
+    }
     // Check if the name input form is displayed
     if (document.getElementById('name-input').style.display === 'block') {
         return;
