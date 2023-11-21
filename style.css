@@ -66,9 +66,44 @@ html, body {
     cursor: pointer;
 }
 
-#game-board, #game-title, #score, #high-score, #restart-button {
+#game-board, #game-title, #score, #high-score, #restart-button, #leaderboard {
     transition: all 0.5s ease;
 }
+
+#scoreboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#leaderboard h3 {
+    font-family: 'Press Start 2P';
+    font-weight: 300;
+    color: #fff;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#leaderboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Press Start 2P';
+    font-size: 1em;
+    margin-bottom: 15px;
+}
+
+#leaderboard li {
+    padding: 5px 0;
+}
+
+#button-container {
+    display: flex;
+    justify-content: center;
+}
+
 
 @media (max-width: 600px) {
     #game-board {
@@ -81,6 +116,10 @@ html, body {
     }
 
     #score, #high-score, #restart-button {
-        font-size: 0.75em;
+        font-size: 1em;
+    }
+
+    #leaderboard {
+        font-size: 0.6em;
     }
 }
