@@ -7,7 +7,15 @@ const scoresList = document.getElementById('scores-list');
 let finalScore = 0;
 
 window.addEventListener('keydown', e => {
-    // Dodajemy warunek sprawdzający, czy naciśnięty klawisz to strzałka
+    // Sprawdź, czy wyświetlany jest ekran końcowy
+    if (document.getElementById('end-screen').style.display === 'block') {
+        if (e.key === 'Enter') {
+            // Tutaj możemy umieścić kod, który ma się wykonać po wciśnięciu klawisza Enter
+            document.getElementById('restart-button').click();
+        }
+        // Zatrzymaj dalsze przetwarzanie zdarzenia
+        return;
+    }
     if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
         return;
     }
