@@ -1,5 +1,10 @@
 let direction = {x: 0, y: 0};
 let keyPress = false;
+let leaderboard = localStorage.getItem('leaderboard') ? JSON.parse(localStorage.getItem('leaderboard')) : [];
+console.log(typeof leaderboard); // should print "object"
+console.log(Array.isArray(leaderboard)); // should print "true"
+console.log(leaderboard); // should print the array
+const scoresList = document.getElementById('scores-list');
 
 window.addEventListener('keydown', e => {
     if (keyPress === false && e.key === 'ArrowLeft') {
@@ -134,6 +139,8 @@ function gameOver() {
         localStorage.setItem('highScore', highScore.toString());
     }
     alert('Game Over! Your score is: ' + score);
+    updateLeaderboard(score);
+
     snake = [
         {x: gameBoardSize / 2, y: gameBoardSize / 2},
         {x: gameBoardSize / 2 - 1, y: gameBoardSize / 2},
@@ -143,7 +150,50 @@ function gameOver() {
     keyPress = false;
     score = 0;
     scoreElement.innerText = 'Score: ' + score;
-    generateFood();
+    generateFood(0);
+    generateFood(1);
+
+    document.getElementById('end-screen').style.display = 'block';
+    document.getElementById('game-container').style.display = 'none';
+    displayLeaderboard();
+
+    console.log('End screen display style:', document.getElementById('end-screen').style.display);
+    console.log('End screen element:', document.getElementById('end-screen'));
+}
+
+document.getElementById('restart-button').addEventListener('click', function() {
+    document.getElementById('end-screen').style.display = 'none';
+    document.getElementById('game-container').style.display = 'block';
+
+    // Reset game state
+    score = 0;
+    scoreElement.innerText = 'Score: ' + score;
+    snake = [
+        {x: gameBoardSize / 2, y: gameBoardSize / 2},
+        {x: gameBoardSize / 2 - 1, y: gameBoardSize / 2},
+        {x: gameBoardSize / 2 - 2, y: gameBoardSize / 2}
+    ];
+    direction = { x: 0, y: 0 };
+    keyPress = false;
+    generateFood(0);
+    generateFood(1);
+});
+
+function displayLeaderboard() {
+    scoresList.innerHTML = '';
+    console.log('Scores list element:', scoresList);
+    leaderboard.forEach((score, index) => {
+        const li = document.createElement('li');
+        li.textContent = `Player ${index + 1}: ${score}`;
+        scoresList.appendChild(li);
+    });
+}
+
+function updateLeaderboard(score) {
+    leaderboard.push(score);
+    leaderboard.sort((a, b) => b - a);
+    leaderboard = leaderboard.slice(0, 10); // Keep only top 10 scores
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
 }
 
 function main() {
