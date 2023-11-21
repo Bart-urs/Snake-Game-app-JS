@@ -39,11 +39,32 @@ let snake = [
 ];
 let food = [null, null];
 
+console.log("FOO!")
+
+function saveHighScoreToLocalStorage(score) {
+    console.log("Saving high score to local storage:", score)
+    localStorage.setItem('highScore', score.toString());
+}
+
+function saveHighScoreToBackend(score) {
+    console.log("(Not yet) Saving high score to HTTP backend:", score)
+    // TODO????
+}
+
+const storages = [
+    saveHighScoreToLocalStorage,
+    saveHighScoreToBackend,
+]
+
+function saveHighScoreToAllStorages(score) {
+    storages.forEach(save => save(score))
+}
+
 function updateHighScore() {
     if (score > highScore) {
         highScore = score;
         highScoreElement.innerText = 'High Score: ' + highScore;
-        localStorage.setItem('highScore', highScore.toString());
+        saveHighScoreToLocalStorage(highScore);
     }
 }
 
