@@ -1,12 +1,17 @@
 let direction = {x: 0, y: 0};
 let keyPress = false;
+// localStorage.removeItem('leaderboard');
 let leaderboard = localStorage.getItem('leaderboard') ? JSON.parse(localStorage.getItem('leaderboard')) : [];
-console.log(typeof leaderboard); // should print "object"
-console.log(Array.isArray(leaderboard)); // should print "true"
-console.log(leaderboard); // should print the array
+console.log("Leaderboard at start:", leaderboard);
 const scoresList = document.getElementById('scores-list');
+let finalScore = 0;
 
 window.addEventListener('keydown', e => {
+    // Check if the name input form is displayed
+    if (document.getElementById('name-input').style.display === 'block') {
+        return;
+    }
+
     if (keyPress === false && e.key === 'ArrowLeft') {
         return;
     }
@@ -139,7 +144,8 @@ function gameOver() {
         localStorage.setItem('highScore', highScore.toString());
     }
     alert('Game Over! Your score is: ' + score);
-    updateLeaderboard(score);
+
+    finalScore = score; // Store the final score before resetting
 
     snake = [
         {x: gameBoardSize / 2, y: gameBoardSize / 2},
@@ -153,19 +159,14 @@ function gameOver() {
     generateFood(0);
     generateFood(1);
 
-    document.getElementById('end-screen').style.display = 'block';
+    document.getElementById('name-input').style.display = 'block';
     document.getElementById('game-container').style.display = 'none';
-    displayLeaderboard();
-
-    console.log('End screen display style:', document.getElementById('end-screen').style.display);
-    console.log('End screen element:', document.getElementById('end-screen'));
 }
 
 document.getElementById('restart-button').addEventListener('click', function() {
     document.getElementById('end-screen').style.display = 'none';
     document.getElementById('game-container').style.display = 'block';
 
-    // Reset game state
     score = 0;
     scoreElement.innerText = 'Score: ' + score;
     snake = [
@@ -181,20 +182,32 @@ document.getElementById('restart-button').addEventListener('click', function() {
 
 function displayLeaderboard() {
     scoresList.innerHTML = '';
-    console.log('Scores list element:', scoresList);
-    leaderboard.forEach((score, index) => {
+    leaderboard.forEach((entry) => {
         const li = document.createElement('li');
-        li.textContent = `Player ${index + 1}: ${score}`;
+        li.textContent = `${entry.name}: ${entry.score}`;
         scoresList.appendChild(li);
     });
 }
 
 function updateLeaderboard(score) {
-    leaderboard.push(score);
-    leaderboard.sort((a, b) => b - a);
-    leaderboard = leaderboard.slice(0, 10); // Keep only top 10 scores
+    console.log("Updating leaderboard with score:", score);
+    var playerName = document.getElementById('player-name').value; // Get the player name here
+    leaderboard.push({ name: playerName, score: score });
+    leaderboard.sort((a, b) => b.score - a.score);
+    leaderboard = leaderboard.slice(0, 10);
     localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+    console.log("Leaderboard saved to localStorage:", JSON.parse(localStorage.getItem('leaderboard')));
+    document.getElementById('player-name').value = ''; // Clear the input field
+    console.log("Leaderboard after update:", leaderboard);
 }
+
+document.getElementById('name-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    updateLeaderboard(finalScore);
+    displayLeaderboard();
+    document.getElementById('name-input').style.display = 'none';
+    document.getElementById('end-screen').style.display = 'block';
+});
 
 function main() {
     setTimeout(() => {

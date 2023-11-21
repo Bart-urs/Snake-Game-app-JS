@@ -104,19 +104,57 @@ html, body {
     justify-content: center;
 }
 
+#name-input h2 {
+    font-family: 'Press Start 2P';
+    font-weight: 100;
+    font-size: 22px;
+    color: #fff;
+}
+
+#player-name {
+    font-family: 'Press Start 2P';
+    color: #fff;
+}
+
+#name-input button {
+    font-family: 'Press Start 2P';
+    font-weight: 100;
+    font-size: 16px;
+    color: #fff;
+    background-color: #000;
+    border: #000;
+}
+#name-input button:hover {
+    font-family: 'Press Start 2P';
+    font-weight: 100;
+    font-size: 16px;
+    color: #000;
+    background-color: #fff;
+    border: #000;
+}
+
+.input-style {
+    /* Add your styles here */
+    width: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background-color: #000;
+}
+
 
 @media (max-width: 600px) {
     #game-board {
-        height: 300px;
-        width: 300px;
+        height: 350px;
+        width: 350px;
     }
 
     #game-title {
-        font-size: 1.5em;
+        font-size: 1em;
     }
 
     #score, #high-score, #restart-button {
-        font-size: 1em;
+        font-size: 0.75em;
     }
 
     #leaderboard {
