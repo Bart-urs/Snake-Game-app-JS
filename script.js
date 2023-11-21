@@ -7,6 +7,10 @@ const scoresList = document.getElementById('scores-list');
 let finalScore = 0;
 
 window.addEventListener('keydown', e => {
+    // Dodajemy warunek sprawdzający, czy naciśnięty klawisz to strzałka
+    if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        return;
+    }
     // Sprawdź, czy wyświetlany jest ekran końcowy
     if (document.getElementById('end-screen').style.display === 'block') {
         if (e.key === 'Enter') {
@@ -76,7 +80,7 @@ function clearBoard() {
 
 function updateGame() {
     if (!keyPress) return;
-    const head = { ...snake[0] };
+    const head = { ...snake[0] }; 
 
     head.x += direction.x;
     head.y += direction.y;
@@ -87,11 +91,13 @@ function updateGame() {
     if (head.y > gameBoardSize) head.y = 1;
 
     // Check if the snake is crossing itself
-    if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
-        // If so, end the game
-        updateHighScore();
-        gameOver();
-        return;
+    if (direction.x !== 0 || direction.y !== 0) { // Add this line
+        if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+            // If so, end the game
+            updateHighScore();
+            gameOver();
+            return;
+        }
     }
 
     let ateFood = false;
